@@ -1,5 +1,6 @@
 import React from "react";
 //import GoogleLogin from "react-google-login";
+import jwt_Decode from "jwt-decode";
 import {GoogleLogin} from '@react-oauth/google'
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
@@ -11,19 +12,18 @@ import { client } from '../client'
 const Login = () => {
   const navigate = useNavigate();
   const responseGoogle = (response) =>{
-    localStorage.setItem('user',JSON.stringify(response))
-    console.log(response);
-    //This part must be changed since react-oauth does not provide imageurls and ect.
+    const decoded = jwt_Decode(response.credential);
+    const {name,picture,sub}= decoded;
 
-     const {credential, clientId,imageUrl} = response;
-    // Here as well
+    //Original :localStorage.setItem('user',JSON.stringify(response))
+    //const {credential, clientId,imageUrl} = response;
+    localStorage.setItem('user',sub)
 
     const doc = {
-      _id: clientId,
+      _id: sub,
       _type: 'user',
-      userName: credential,
-      image: 'test'
-      //image: imageUrl
+      userName: name,
+      image: picture 
     }
 
     client.createIfNotExists(doc).then(()=>{

@@ -4,7 +4,6 @@ import {IoMdAdd,IoMdSearch} from 'react-icons/io'
 
 const Navbar = ({searchTerm,setSearchTerm,user}) => {
   const navigate = useNavigate();
-
 // if(!user) return null;
 
   return (
@@ -21,11 +20,8 @@ const Navbar = ({searchTerm,setSearchTerm,user}) => {
     </div>
     <div className='flex gap-3'>
       <Link to={`user-profile/${user?._id}`} className="hidden md:block">
-      {/* TODO: Googleアカウントの画像をもらえないので一時的に適当な画像のリンクを挿入している */}
-      <img src="https://www.freepngimg.com/thumb/lion/4-small-lion-png-image.png" alt="user-profile" className='w-14 h-12 rounded-lg' />
-      {/* TODO: Correct Picture */}
-      {/* <img src={user.imgage} alt="user-profile" className='w-14 h-12 rounded-lg' />
- */}     
+       <img src={user?.image} alt="user-profile" className='w-14 h-12 rounded-lg' />  
+      
       </Link>
       <Link to="/create-pin" className="bg-black text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center">
       <IoMdAdd/>
