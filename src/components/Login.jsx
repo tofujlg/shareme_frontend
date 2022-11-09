@@ -1,23 +1,35 @@
 import React from "react";
 //import GoogleLogin from "react-google-login";
-import {GoogleLogin,googleLogout} from '@react-oauth/google'
+import {GoogleLogin} from '@react-oauth/google'
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logowhite.png";
 
+import { client } from '../client'
+
 const Login = () => {
+  const navigate = useNavigate();
   const responseGoogle = (response) =>{
+    localStorage.setItem('user',JSON.stringify(response))
     console.log(response);
-    
-    const {name, googleId,imageUrl} = response.profileObj;
+    //This part must be changed since react-oauth does not provide imageurls and ect.
+
+     const {credential, clientId,imageUrl} = response;
+    // Here as well
 
     const doc = {
-      _id: googleId,
+      _id: clientId,
       _type: 'user',
-      userName: name,
-      image: imageUrl
+      userName: credential,
+      image: 'test'
+      //image: imageUrl
     }
+
+    client.createIfNotExists(doc).then(()=>{
+      navigate('/',{replace:true})
+    })
+ 
   }
 //  console.log(process.env.REACT_APP_GOOGLE_API_TOKEN);
   return (
