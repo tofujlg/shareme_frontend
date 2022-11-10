@@ -15,6 +15,7 @@ const Login = () => {
     const decoded = jwt_Decode(response.credential);
     const {name,picture,sub}= decoded;
 
+    //TODO:decodedの情報をそのままローカルストレージに上げないといけない
     //Original :localStorage.setItem('user',JSON.stringify(response))
     //const {credential, clientId,imageUrl} = response;
     localStorage.setItem('user',sub)
