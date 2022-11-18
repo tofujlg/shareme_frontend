@@ -8,7 +8,7 @@ import Pins from "./Pins";
 import { userQuery } from "../utils/data";
 import { fetchUser } from "../utils/fetchUser";
 import { client } from "../client";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo2.png";
 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
